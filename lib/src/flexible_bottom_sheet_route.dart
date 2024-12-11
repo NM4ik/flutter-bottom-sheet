@@ -158,6 +158,7 @@ Future<T?> showStickyFlexibleBottomSheet<T>({
   BorderRadiusGeometry? bottomSheetBorderRadius,
   Color? barrierColor,
   Duration? duration,
+  Duration? reverseDuration,
   bool isSafeArea = false,
   bool useRootScaffold = true,
   RouteSettings? routeSettings,
@@ -192,6 +193,7 @@ Future<T?> showStickyFlexibleBottomSheet<T>({
       bottomSheetBorderRadius: bottomSheetBorderRadius,
       barrierBottomSheetColor: barrierColor,
       duration: duration,
+      reverseDuration: reverseDuration,
       isSafeArea: isSafeArea,
       useRootScaffold: useRootScaffold,
       settings: routeSettings,
@@ -223,6 +225,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final BorderRadiusGeometry? bottomSheetBorderRadius;
   final Color? barrierBottomSheetColor;
   final Duration? duration;
+  final Duration? reverseDuration;
   final bool isSafeArea;
   final bool useRootScaffold;
 
@@ -231,6 +234,10 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
 
   @override
   Duration get transitionDuration => duration ?? _bottomSheetEnterDuration;
+
+  @override
+  Duration get reverseTransitionDuration =>
+      reverseDuration ?? _bottomSheetExitDuration;
 
   @override
   bool get barrierDismissible => isDismissible;
@@ -268,6 +275,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.bottomSheetBorderRadius,
     this.barrierBottomSheetColor,
     this.duration,
+    this.reverseDuration,
     super.settings,
   });
 
@@ -275,7 +283,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   AnimationController createAnimationController() {
     _animationController = AnimationController(
       duration: transitionDuration,
-      reverseDuration: _bottomSheetExitDuration,
+      reverseDuration: reverseTransitionDuration,
       debugLabel: 'FlexibleBottomSheet',
       vsync: navigator!.overlay!,
     );
