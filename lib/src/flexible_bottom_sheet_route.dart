@@ -159,6 +159,7 @@ Future<T?> showStickyFlexibleBottomSheet<T>({
   Color? barrierColor,
   Duration? duration,
   Duration? reverseDuration,
+  Curve? curve,
   bool isSafeArea = false,
   bool useRootScaffold = true,
   RouteSettings? routeSettings,
@@ -194,6 +195,7 @@ Future<T?> showStickyFlexibleBottomSheet<T>({
       barrierBottomSheetColor: barrierColor,
       duration: duration,
       reverseDuration: reverseDuration,
+      curve: curve,
       isSafeArea: isSafeArea,
       useRootScaffold: useRootScaffold,
       settings: routeSettings,
@@ -249,6 +251,8 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
 
   late AnimationController _animationController;
 
+  final Curve? curve;
+
   FlexibleBottomSheetRoute({
     required this.minHeight,
     required this.initHeight,
@@ -275,6 +279,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.bottomSheetBorderRadius,
     this.barrierBottomSheetColor,
     this.duration,
+    this.curve,
     this.reverseDuration,
     super.settings,
   });
@@ -362,7 +367,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   ) {
     const begin = Offset(0, 1);
     const end = Offset.zero;
-    const curve = Curves.ease;
+    final curve = this.curve ?? Curves.ease;
     final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
     return SlideTransition(
