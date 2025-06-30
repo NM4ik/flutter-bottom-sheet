@@ -163,6 +163,7 @@ Future<T?> showStickyFlexibleBottomSheet<T>({
   bool isSafeArea = false,
   bool useRootScaffold = true,
   RouteSettings? routeSettings,
+  bool listenViewInsets = true,
 }) {
   assert(maxHeaderHeight != null || headerHeight != null);
   assert(debugCheckHasMediaQuery(context));
@@ -199,6 +200,7 @@ Future<T?> showStickyFlexibleBottomSheet<T>({
       isSafeArea: isSafeArea,
       useRootScaffold: useRootScaffold,
       settings: routeSettings,
+      listenViewInsets: listenViewInsets,
     ),
   );
 }
@@ -230,6 +232,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
   final Duration? reverseDuration;
   final bool isSafeArea;
   final bool useRootScaffold;
+  final bool listenViewInsets;
 
   @override
   final String? barrierLabel;
@@ -281,6 +284,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
     this.duration,
     this.curve,
     this.reverseDuration,
+    this.listenViewInsets = true,
     super.settings,
   });
 
@@ -325,6 +329,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
               bottomSheetColor: bottomSheetColor,
               useRootScaffold: useRootScaffold,
               bottomSheetBorderRadius: bottomSheetBorderRadius,
+              listenViewInsets: listenViewInsets,
             )
           : FlexibleBottomSheet(
               route: this,
@@ -346,6 +351,7 @@ class FlexibleBottomSheetRoute<T> extends PopupRoute<T> {
               bottomSheetColor: bottomSheetColor,
               useRootScaffold: useRootScaffold,
               bottomSheetBorderRadius: bottomSheetBorderRadius,
+              listenViewInsets: listenViewInsets,
             ),
     );
 

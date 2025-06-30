@@ -336,7 +336,7 @@ class _FlexibleBottomSheetState<T> extends State<FlexibleBottomSheet<T>> {
   Widget build(BuildContext context) {
     final bottomSheetThemeBackground =
         Theme.of(context).bottomSheetTheme.backgroundColor;
-    final colorSchemeBackground = Theme.of(context).colorScheme.background;
+    final colorSchemeBackground = Theme.of(context).colorScheme.surface;
 
     final bottomSheetColor = widget.bottomSheetColor ??
         bottomSheetThemeBackground ??
