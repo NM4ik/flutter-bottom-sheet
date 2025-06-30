@@ -112,6 +112,7 @@ class FlexibleBottomSheet<T> extends StatefulWidget {
   final PopupRoute<T>? route;
   final bool useRootScaffold;
   final BorderRadiusGeometry? bottomSheetBorderRadius;
+  final bool listenViewInsets;
 
   FlexibleBottomSheet({
     super.key,
@@ -134,6 +135,7 @@ class FlexibleBottomSheet<T> extends StatefulWidget {
     this.bottomSheetColor,
     this.bottomSheetBorderRadius,
     this.draggableScrollableController,
+    this.listenViewInsets = true,
     this.useRootScaffold = true,
   })  : assert(minHeight >= 0 && minHeight <= 1),
         assert(maxHeight > 0 && maxHeight <= 1),
@@ -162,6 +164,7 @@ class FlexibleBottomSheet<T> extends StatefulWidget {
     Color? bottomSheetColor,
     bool useRootScaffold = true,
     BorderRadiusGeometry? bottomSheetBorderRadius,
+    bool listenViewInsets = true,
   }) : this(
           route: route,
           key: key,
@@ -183,6 +186,7 @@ class FlexibleBottomSheet<T> extends StatefulWidget {
           bottomSheetColor: bottomSheetColor,
           useRootScaffold: useRootScaffold,
           bottomSheetBorderRadius: bottomSheetBorderRadius,
+          listenViewInsets: listenViewInsets,
         );
 
   @override
@@ -369,7 +373,7 @@ class _FlexibleBottomSheetState<T> extends State<FlexibleBottomSheet<T>> {
                 );
               }
               // Checking for openness of the keyboard before opening the sheet.
-              if (delta == 0 && inset > 0) {
+              if (delta == 0 && inset > 0 && widget.listenViewInsets) {
                 _widgetBinding.addPostFrameCallback(
                   (_) {
                     setState(
